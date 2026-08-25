@@ -3,6 +3,7 @@ package com.eventostec.api.service;
 import com.amazonaws.services.s3.AmazonS3;
 import com.eventostec.api.domain.eventos.Event;
 import com.eventostec.api.domain.eventos.EventRequestDTO;
+import com.eventostec.api.domain.repositories.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,10 @@ public class EventService {
 
     @Autowired
     private AmazonS3 s3Client;
+    private EventRepository eventRepository;
+    public EventService(EventRepository eventRepository) {
+        this.eventRepository = eventRepository;
+    }
 
     public Event createEvent(EventRequestDTO data){
         String imgUrl = null;
@@ -37,8 +42,10 @@ public class EventService {
         newEvent.setDescription(data.description());
         newEvent.setEventUrl(data.eventUrl());
         newEvent.setDate(new Date(data.date()));
-        newEvent.setImgUrl(imgUrl);
+        newEvent.setImgUrl("imgteste");
+        newEvent.setRemote(data.remote());
 
+        eventRepository.save(newEvent);
         return newEvent;
     }
 
