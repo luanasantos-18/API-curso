@@ -2,11 +2,10 @@ package com.eventostec.api.domain.address;
 
 import com.eventostec.api.domain.eventos.Event;
 import jakarta.persistence.*;
-import org.apache.catalina.User;
 
 import java.util.UUID;
 
-@Table (name = "address")
+@Table(name = "address")
 @Entity
 public class Address {
     @Id
